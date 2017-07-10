@@ -41,7 +41,7 @@ exports.resize = async (req, res, next) => {
   await photo.resize(800, jimp.AUTO);
   await photo.write(`./public/uploads/${req.body.photo}`);
   next();
-}
+};
 
 exports.createStore = async (req, res) => {
   const store = await (new Store(req.body)).save();
@@ -66,19 +66,19 @@ exports.getStores = async (req, res) => {
   const stores = await Store.find();
 
   res.render('stores', { title: 'Stores', stores });
-}
+};
 
 exports.editStore = async (req, res) => {
   const store = await Store.findOne({ _id: req.params.id });
 
   res.render('editStore', { title: `Edit ${store.name}`, store });
-}
+};
 
 exports.getStoreBySlug = async (req, res) => {
   const store = await Store.findOne({ slug: req.params.slug });
   if (!store) return next();
   res.render('store', { title: store.name, store });
-}
+};
 
 exports.getStoresByTag = async (req, res) => {
   const tag = req.params.tag;
@@ -89,4 +89,4 @@ exports.getStoresByTag = async (req, res) => {
   const [tags, stores] = await Promise.all([tagsPromise,storesPromise]);
 
   res.render('tags', { title: 'Tags', tags, tag, stores });
-}
+};

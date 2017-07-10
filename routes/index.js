@@ -39,4 +39,11 @@ router.post('/register',
   authenticationController.login
 );
 
+router.get('/account',
+  authenticationController.isLoggedIn,
+  userController.account
+);
+
+router.post('/account', catchErrors(userController.updateAccount));
+
 module.exports = router;

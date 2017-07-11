@@ -40,6 +40,10 @@ const storeSchema = new mongoose.Schema({
   }
 });
 
+storeSchema.index({
+  name: 'text',
+  description: 'text'
+});
 
 storeSchema.pre('save', async function(next) {
   if (!this.isModified('name')) {
@@ -64,6 +68,6 @@ storeSchema.statics.getTagsList = function() {
     { $group: { _id: '$tags', count: { $sum: 1 } }},
     { $sort: { count: -1 }}
   ]);
-}
+};
 
 module.exports = mongoose.model('Store', storeSchema);

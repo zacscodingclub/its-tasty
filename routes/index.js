@@ -24,6 +24,11 @@ router.post('/add/:id',
 );
 router.get('/stores/:id/edit', catchErrors(storeController.editStore));
 
+router.get('/hearts',
+  authenticationController.isLoggedIn,
+  catchErrors(storeController.getHearts)
+);
+
 router.get('/tags', catchErrors(storeController.getStoresByTag));
 router.get('/tags/:tag', catchErrors(storeController.getStoresByTag));
 
@@ -62,5 +67,7 @@ router.get('/map', storeController.mapPage);
 router.get('/api/v1/search', catchErrors(storeController.searchStores));
 
 router.get('/api/v1/stores/near', catchErrors(storeController.mapStores));
+
+router.post('/api/v1/stores/:id/heart', catchErrors(storeController.heartStore));
 
 module.exports = router;

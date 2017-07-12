@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const storeController = require('../controllers/storeController');
 const userController = require('../controllers/userController');
+const reviewController = require('../controllers/reviewController');
 const authenticationController = require('../controllers/authenticationController');
 const { catchErrors } = require('../handlers/errorHandlers');
 
@@ -59,6 +60,13 @@ router.post('/account/reset/:token',
 );
 
 router.get('/map', storeController.mapPage);
+
+router.post('/reviews/:id',
+  authenticationController.isLoggedIn,
+  reviewController.addReview
+);
+
+router.get('/top', catchErrors(storeController.getTopStores));
 
 /*
   API
